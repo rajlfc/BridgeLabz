@@ -1,0 +1,24 @@
+
+
+{
+    "Food Factory":{
+        "Darth Vader":{
+            "name" : "Rice",
+            "weight" : 100,
+            "price" : 2
+            },
+        "id2":{
+            "name" : "Pulses",
+            "weight" : 50,
+            "price" : 2
+            
+            },
+        "id3":{
+            "name" : "Wheat",
+            "weight" : 70,
+            "price" : 2
+            
+            }
+        }
+    }
+
