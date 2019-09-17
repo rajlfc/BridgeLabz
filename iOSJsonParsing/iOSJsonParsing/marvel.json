@@ -1,0 +1,22 @@
+{
+	"title" : "UseList",
+	"details":[
+		{
+			"name" : "Sudipta",
+			"age" : 24
+		},
+        {
+            "name" : "Vishnu",
+            "age" : 22
+        },
+        {
+            "name" : "Ravindra",
+            "age" : 22
+        },
+        {
+            "name" : "Shubham",
+            "age" : 24
+        }
+        
+   ]
+}
