@@ -10,7 +10,8 @@ import UIKit
 import Foundation
 struct Inventory : Codable {
     var emailid : String?
-    var password : String?
+    //var userid : String?
+    var security : String?
     //var price : Int?
 }
 
@@ -20,12 +21,14 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var emailfield: UITextField!
     
+    //@IBOutlet weak var marqueefield: 
     @IBOutlet weak var passfield: UITextField!
     var flag = 1
     var str: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
         
         let filePath = "/Users/admin/BridgeLabz/Week3 JSON/FundooApp/FundooApp/login.json"  // file path
         let fileData = FileManager.default.contents(atPath: filePath)
@@ -39,13 +42,15 @@ class ViewController: UIViewController {
             print("Not Found")
         }
         
+        
+        
         //print(flag)
     }
     func checkemailpass()->Bool
     {
         for i in myArrayofRiceInventory{
             
-            if emailfield.text == i.emailid && passfield.text == i.password
+            if emailfield.text == i.emailid && passfield.text == KeychainWrapper.standard.string(forKey: emailfield.text!)
             {
                 return true
             }
@@ -76,6 +81,12 @@ class ViewController: UIViewController {
         self.present(first, animated: true, completion: nil)
     }
     
+    @IBAction func forgetPassword(_ sender: Any) {
+        
+        let main = UIStoryboard(name: "Main", bundle: nil)
+        let first = main.instantiateViewController(withIdentifier: "ForgotPasswordVC")
+        self.present(first, animated: true, completion: nil)
+    }
     
 }
 

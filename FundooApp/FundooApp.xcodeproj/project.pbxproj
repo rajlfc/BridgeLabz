@@ -19,6 +19,9 @@
 		840068E22334F57200400774 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840068E12334F57200400774 /* ThirdViewController.swift */; };
 		8400691623362D3400400774 /* login.json in Resources */ = {isa = PBXBuildFile; fileRef = 8400691523362D3400400774 /* login.json */; };
 		840069182336471A00400774 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840069172336471A00400774 /* Validation.swift */; };
+		840741622338860700AD21A4 /* alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840741612338860700AD21A4 /* alert.swift */; };
+		840741642338937B00AD21A4 /* FourthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840741632338937B00AD21A4 /* FourthViewController.swift */; };
+		84074166233896BE00AD21A4 /* FifthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84074165233896BE00AD21A4 /* FifthViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		840068E12334F57200400774 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		8400691523362D3400400774 /* login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login.json; sourceTree = "<group>"; };
 		840069172336471A00400774 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		840741612338860700AD21A4 /* alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alert.swift; sourceTree = "<group>"; };
+		840741632338937B00AD21A4 /* FourthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthViewController.swift; sourceTree = "<group>"; };
+		84074165233896BE00AD21A4 /* FifthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,8 +97,11 @@
 			children = (
 				8400691523362D3400400774 /* login.json */,
 				840068BB23348D7000400774 /* AppDelegate.swift */,
+				840741612338860700AD21A4 /* alert.swift */,
 				840068BD23348D7000400774 /* ViewController.swift */,
+				840741632338937B00AD21A4 /* FourthViewController.swift */,
 				840068BF23348D7000400774 /* Main.storyboard */,
+				84074165233896BE00AD21A4 /* FifthViewController.swift */,
 				840068E12334F57200400774 /* ThirdViewController.swift */,
 				840069172336471A00400774 /* Validation.swift */,
 				840068DB23348E2500400774 /* SecondViewController.swift */,
@@ -216,12 +225,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84074166233896BE00AD21A4 /* FifthViewController.swift in Sources */,
 				840068DC23348E2500400774 /* SecondViewController.swift in Sources */,
 				840068DF2334C64C00400774 /* KeychainItemAccessibility.swift in Sources */,
 				840068BE23348D7000400774 /* ViewController.swift in Sources */,
+				840741642338937B00AD21A4 /* FourthViewController.swift in Sources */,
 				840068BC23348D7000400774 /* AppDelegate.swift in Sources */,
 				840068E22334F57200400774 /* ThirdViewController.swift in Sources */,
 				840068E02334C64C00400774 /* KeychainWrapper.swift in Sources */,
+				840741622338860700AD21A4 /* alert.swift in Sources */,
 				840069182336471A00400774 /* Validation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

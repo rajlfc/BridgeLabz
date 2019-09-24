@@ -15,17 +15,48 @@ class ThirdViewController: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var EmailField: UITextField!
     @IBOutlet weak var PassField: UITextField!
+    @IBOutlet weak var useridfield: UITextField!
     @IBOutlet weak var ConfirmPassField: UITextField!
+    @IBOutlet weak var securityfield: UITextField!
+    var emailverify : Int?
     var myArrayofRiceInventory = [Inventory]()
     var myArrayofRiceInventory2 = [String:[Inventory]]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
     
         
 
         // Do any additional setup after loading the view.
+        EmailField.tag = 1001
+//        KeychainWrapper.standard.set(PassField.text!, forKey: EmailField.text!)
      }
+    
+    @IBAction func emailverify(_ sender: UITextField) {
+        
+        //alertemailstart()
+        if sender.tag == 1001
+        {
+            if Validation.shared.isValidEmail(emailStr: EmailField.text!)
+            {
+                emailverify = 1
+                let alertController:UIAlertController = UIAlertController(title: "Message", message: "Email Verified", preferredStyle: UIAlertController.Style.alert)
+                let alertAction:UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:nil)
+                alertController.addAction(alertAction)
+                present(alertController, animated: true, completion: nil)
+            }
+            else
+            {
+                emailverify = 0
+                let alertController:UIAlertController = UIAlertController(title: "Message", message: "Email not supported", preferredStyle: UIAlertController.Style.alert)
+                let alertAction:UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:nil)
+                alertController.addAction(alertAction)
+                present(alertController, animated: true, completion: nil)
+            }
+        }
+        
+    }
     
     
 
@@ -44,36 +75,33 @@ class ThirdViewController: UIViewController,UITextFieldDelegate {
         let fileData = FileManager.default.contents(atPath: filepath)
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
-        if PassField.text == ConfirmPassField.text 
+        if PassField.text == ConfirmPassField.text  && emailverify == 1
         {
-            let d1 = Inventory(emailid: EmailField.text!, password: PassField.text!)
+            let d1 = Inventory(emailid: EmailField.text!,security: securityfield.text!)
             do{
 
                 let jsonDictionary : [String :[Inventory]] = try decoder.decode(Dictionary.self, from: fileData!)
                 myArrayofRiceInventory = jsonDictionary["details"]!
                 myArrayofRiceInventory.append(d1)
-
+                KeychainWrapper.standard.set(PassField.text!, forKey: EmailField.text!)
                 myArrayofRiceInventory2 = ["details": myArrayofRiceInventory]
                 let jsondata = try encoder.encode(myArrayofRiceInventory2)
                 let url = URL(fileURLWithPath: filepath)
                 try jsondata.write(to: url)
-                
-                let alertController:UIAlertController = UIAlertController(title: "Message", message: "Successfully registered", preferredStyle: UIAlertController.Style.alert)
-                let alertAction:UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:nil)
-                alertController.addAction(alertAction)
-                present(alertController, animated: true, completion: nil)
-                
+                   alertsuccessfulregister()
+
 
             }catch let error{
                 print("Not Found")
             }
         }
-        else
+        else if PassField.text != ConfirmPassField.text
         {
-            let alertController:UIAlertController = UIAlertController(title: "Message", message: "Passwords do not match", preferredStyle: UIAlertController.Style.alert)
-            let alertAction:UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:nil)
-            alertController.addAction(alertAction)
-            present(alertController, animated: true, completion: nil)
+            alertpasswordmissmatch()
+        }
+        else if emailverify == 0
+        {
+            alertemailverify()
         }
 
     }
