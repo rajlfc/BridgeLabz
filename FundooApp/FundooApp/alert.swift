@@ -43,5 +43,25 @@ extension ThirdViewController{
         alertController.addAction(alertAction)
         present(alertController, animated: true, completion: nil)
     }
+    func alertpasswordstrength()
+    {
+        let alertController:UIAlertController = UIAlertController(title: "Message", message: "Password Strength is weak please make a strong password", preferredStyle: UIAlertController.Style.alert)
+        let alertAction:UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:nil)
+        alertController.addAction(alertAction)
+        present(alertController, animated: true, completion: nil)
+    }
+}
+extension NoteOpenViewController{
+    
+    func alertDelete()
+    {
+        let alert = UIAlertController(title: "Success", message: "Deleted Note Sucessfully", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            let viewControllerYouWantToPresent = self.storyboard?.instantiateViewController(withIdentifier: "SecondVC")
+            self.present(viewControllerYouWantToPresent!, animated: true, completion: nil)
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 

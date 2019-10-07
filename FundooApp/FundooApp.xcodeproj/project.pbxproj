@@ -14,14 +14,21 @@
 		840068C623348D7200400774 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840068C423348D7200400774 /* LaunchScreen.storyboard */; };
 		840068D123348D7200400774 /* FundooAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840068D023348D7200400774 /* FundooAppTests.swift */; };
 		840068DC23348E2500400774 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840068DB23348E2500400774 /* SecondViewController.swift */; };
-		840068DF2334C64C00400774 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840068DD2334C64C00400774 /* KeychainItemAccessibility.swift */; };
-		840068E02334C64C00400774 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840068DE2334C64C00400774 /* KeychainWrapper.swift */; };
 		840068E22334F57200400774 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840068E12334F57200400774 /* ThirdViewController.swift */; };
 		8400691623362D3400400774 /* login.json in Resources */ = {isa = PBXBuildFile; fileRef = 8400691523362D3400400774 /* login.json */; };
 		840069182336471A00400774 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840069172336471A00400774 /* Validation.swift */; };
+		84041B04233B9EF80029AC4C /* SixthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84041B03233B9EF80029AC4C /* SixthViewController.swift */; };
+		8404216B233E35A800C75FC6 /* TILE900071.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8404216A233E35A800C75FC6 /* TILE900071.jpg */; };
+		840429E9234353CC00FEEF09 /* Fundoo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 840429E7234353CC00FEEF09 /* Fundoo.xcdatamodeld */; };
+		840429EB2343579300FEEF09 /* textlabelcollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840429EA2343579300FEEF09 /* textlabelcollect.swift */; };
+		840429ED23435A0700FEEF09 /* structtext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840429EC23435A0700FEEF09 /* structtext.swift */; };
+		840429EF23435D9900FEEF09 /* myCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840429EE23435D9900FEEF09 /* myCell.swift */; };
+		8404D3642345C18D0091942C /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404D3632345C18D0091942C /* KeychainItemAccessibility.swift */; };
+		8404D3662345C1A40091942C /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8404D3652345C1A40091942C /* KeychainWrapper.swift */; };
 		840741622338860700AD21A4 /* alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840741612338860700AD21A4 /* alert.swift */; };
 		840741642338937B00AD21A4 /* FourthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840741632338937B00AD21A4 /* FourthViewController.swift */; };
 		84074166233896BE00AD21A4 /* FifthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84074165233896BE00AD21A4 /* FifthViewController.swift */; };
+		84FF5BE82347134100B44ECE /* NoteOpenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF5BE72347134100B44ECE /* NoteOpenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,14 +53,21 @@
 		840068D023348D7200400774 /* FundooAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundooAppTests.swift; sourceTree = "<group>"; };
 		840068D223348D7200400774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		840068DB23348E2500400774 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		840068DD2334C64C00400774 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainItemAccessibility.swift; path = "../../../../Downloads/HackingWithSwift-master/project28-files/KeychainItemAccessibility.swift"; sourceTree = "<group>"; };
-		840068DE2334C64C00400774 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = "../../../../Downloads/HackingWithSwift-master/project28-files/KeychainWrapper.swift"; sourceTree = "<group>"; };
 		840068E12334F57200400774 /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		8400691523362D3400400774 /* login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login.json; sourceTree = "<group>"; };
 		840069172336471A00400774 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		84041B03233B9EF80029AC4C /* SixthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixthViewController.swift; sourceTree = "<group>"; };
+		8404216A233E35A800C75FC6 /* TILE900071.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TILE900071.jpg; sourceTree = "<group>"; };
+		840429E8234353CC00FEEF09 /* Fundoo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Fundoo.xcdatamodel; sourceTree = "<group>"; };
+		840429EA2343579300FEEF09 /* textlabelcollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = textlabelcollect.swift; sourceTree = "<group>"; };
+		840429EC23435A0700FEEF09 /* structtext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = structtext.swift; sourceTree = "<group>"; };
+		840429EE23435D9900FEEF09 /* myCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myCell.swift; sourceTree = "<group>"; };
+		8404D3632345C18D0091942C /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		8404D3652345C1A40091942C /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		840741612338860700AD21A4 /* alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alert.swift; sourceTree = "<group>"; };
 		840741632338937B00AD21A4 /* FourthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthViewController.swift; sourceTree = "<group>"; };
 		84074165233896BE00AD21A4 /* FifthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthViewController.swift; sourceTree = "<group>"; };
+		84FF5BE72347134100B44ECE /* NoteOpenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteOpenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +115,8 @@
 				840068BD23348D7000400774 /* ViewController.swift */,
 				840741632338937B00AD21A4 /* FourthViewController.swift */,
 				840068BF23348D7000400774 /* Main.storyboard */,
+				84FF5BE72347134100B44ECE /* NoteOpenViewController.swift */,
+				84041B03233B9EF80029AC4C /* SixthViewController.swift */,
 				84074165233896BE00AD21A4 /* FifthViewController.swift */,
 				840068E12334F57200400774 /* ThirdViewController.swift */,
 				840069172336471A00400774 /* Validation.swift */,
@@ -108,8 +124,13 @@
 				840068C223348D7200400774 /* Assets.xcassets */,
 				840068C423348D7200400774 /* LaunchScreen.storyboard */,
 				840068C723348D7200400774 /* Info.plist */,
-				840068DD2334C64C00400774 /* KeychainItemAccessibility.swift */,
-				840068DE2334C64C00400774 /* KeychainWrapper.swift */,
+				8404D3632345C18D0091942C /* KeychainItemAccessibility.swift */,
+				8404D3652345C1A40091942C /* KeychainWrapper.swift */,
+				8404216A233E35A800C75FC6 /* TILE900071.jpg */,
+				840429E7234353CC00FEEF09 /* Fundoo.xcdatamodeld */,
+				840429EA2343579300FEEF09 /* textlabelcollect.swift */,
+				840429EC23435A0700FEEF09 /* structtext.swift */,
+				840429EE23435D9900FEEF09 /* myCell.swift */,
 			);
 			path = FundooApp;
 			sourceTree = "<group>";
@@ -208,6 +229,7 @@
 				840068C323348D7200400774 /* Assets.xcassets in Resources */,
 				840068C123348D7000400774 /* Main.storyboard in Resources */,
 				8400691623362D3400400774 /* login.json in Resources */,
+				8404216B233E35A800C75FC6 /* TILE900071.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,14 +249,20 @@
 			files = (
 				84074166233896BE00AD21A4 /* FifthViewController.swift in Sources */,
 				840068DC23348E2500400774 /* SecondViewController.swift in Sources */,
-				840068DF2334C64C00400774 /* KeychainItemAccessibility.swift in Sources */,
+				840429E9234353CC00FEEF09 /* Fundoo.xcdatamodeld in Sources */,
 				840068BE23348D7000400774 /* ViewController.swift in Sources */,
+				84041B04233B9EF80029AC4C /* SixthViewController.swift in Sources */,
 				840741642338937B00AD21A4 /* FourthViewController.swift in Sources */,
+				840429EF23435D9900FEEF09 /* myCell.swift in Sources */,
 				840068BC23348D7000400774 /* AppDelegate.swift in Sources */,
 				840068E22334F57200400774 /* ThirdViewController.swift in Sources */,
-				840068E02334C64C00400774 /* KeychainWrapper.swift in Sources */,
+				8404D3662345C1A40091942C /* KeychainWrapper.swift in Sources */,
 				840741622338860700AD21A4 /* alert.swift in Sources */,
+				840429ED23435A0700FEEF09 /* structtext.swift in Sources */,
+				8404D3642345C18D0091942C /* KeychainItemAccessibility.swift in Sources */,
 				840069182336471A00400774 /* Validation.swift in Sources */,
+				84FF5BE82347134100B44ECE /* NoteOpenViewController.swift in Sources */,
+				840429EB2343579300FEEF09 /* textlabelcollect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +525,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		840429E7234353CC00FEEF09 /* Fundoo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				840429E8234353CC00FEEF09 /* Fundoo.xcdatamodel */,
+			);
+			currentVersion = 840429E8234353CC00FEEF09 /* Fundoo.xcdatamodel */;
+			path = Fundoo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 840068B023348D7000400774 /* Project object */;
 }

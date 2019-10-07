@@ -22,6 +22,12 @@ class Validation{
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: emailStr)
     }
+    func isValidPass(passStr:String)->Bool{
+        
+        let passRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$"
+        let passPred = NSPredicate(format: "SELF MATCHES %@", passRegex)
+        return passPred.evaluate(with: passStr)
+    }
 
 }
 

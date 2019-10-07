@@ -19,17 +19,25 @@ struct Inventory : Codable {
 class ViewController: UIViewController {
     var myArrayofRiceInventory = [Inventory]()
     
+    @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var imagetop: UIImageView!
+    @IBOutlet weak var imagebelow: UIImageView!
     @IBOutlet weak var emailfield: UITextField!
-    
-    //@IBOutlet weak var marqueefield: 
-    @IBOutlet weak var passfield: UITextField!
+        @IBOutlet weak var passfield: UITextField!
+    @IBOutlet weak var imagefull: UIImageView!
+    @IBOutlet weak var marqueefield: UIWebView!
     var flag = 1
     var str: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        //self.view.sendSubviewToBack(imagetop)
+        self.view.sendSubviewToBack(imagefull)
         
+        
+        
+//         marqueefield.loadHTMLString("<html><body><marquee>Welcome to FundooNotes</marquee></body></html>", baseURL: nil)
         let filePath = "/Users/admin/BridgeLabz/Week3 JSON/FundooApp/FundooApp/login.json"  // file path
         let fileData = FileManager.default.contents(atPath: filePath)
         let decoder = JSONDecoder()
@@ -45,6 +53,10 @@ class ViewController: UIViewController {
         
         
         //print(flag)
+    }
+    func pract()->String
+    {
+        return "Hi"
     }
     func checkemailpass()->Bool
     {
@@ -63,7 +75,11 @@ class ViewController: UIViewController {
         
         if checkemailpass()
         {
+            UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
+            UserDefaults.standard.synchronize()
             performSegue(withIdentifier: "mysegue", sender: self)
+            
+            
         }
         else
         {
