@@ -386,60 +386,60 @@
                                     <action selector="onbutton:" destination="iyV-yJ-FRt" eventType="touchUpInside" id="BFo-Kn-vNS"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Z0M-Z2-eEe">
-                                <rect key="frame" x="20" y="142" width="342" height="570"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OtS-S1-ugP">
+                                <rect key="frame" x="0.0" y="211" width="414" height="564"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NYP-ee-Nkj">
-                                    <size key="itemSize" width="122" height="95"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="P4i-ZI-6GF">
+                                    <size key="itemSize" width="142" height="125"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="TNj-7v-wyf" customClass="textlabelcollect" customModule="FundooApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="122" height="95"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="KIm-Ig-jeN" customClass="textlabelcollect" customModule="FundooApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="142" height="125"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="122" height="95"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="142" height="125"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbP-ju-T4g">
-                                                    <rect key="frame" x="10" y="0.0" width="42" height="34"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Tm-bh-a34">
+                                                    <rect key="frame" x="10" y="11" width="77" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X3r-B6-hth">
-                                                    <rect key="frame" x="0.0" y="30" width="122" height="54"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="i am details" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehb-2R-M19">
+                                                    <rect key="frame" x="10" y="38" width="123" height="78"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckU-cX-JGU">
-                                                    <rect key="frame" x="100" y="10" width="30" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLl-rI-l9H">
+                                                    <rect key="frame" x="98" y="11" width="20" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="Image-4"/>
                                                 </button>
                                             </subviews>
                                         </view>
                                         <connections>
-                                            <outlet property="buttonc" destination="ckU-cX-JGU" id="glK-OL-sYq"/>
-                                            <outlet property="textlabel" destination="rbP-ju-T4g" id="gaz-TB-7r2"/>
-                                            <outlet property="textview" destination="X3r-B6-hth" id="Euc-8c-Ndr"/>
+                                            <outlet property="buttonc" destination="SLl-rI-l9H" id="V35-Yk-QmJ"/>
+                                            <outlet property="textlabel" destination="6Tm-bh-a34" id="gi4-8z-BcF"/>
+                                            <outlet property="textview" destination="ehb-2R-M19" id="bcL-Zq-X2h"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="iyV-yJ-FRt" id="hRE-bY-pju"/>
-                                    <outlet property="delegate" destination="iyV-yJ-FRt" id="6jw-vy-rbn"/>
+                                    <outlet property="dataSource" destination="iyV-yJ-FRt" id="Bdt-eZ-FmI"/>
+                                    <outlet property="delegate" destination="iyV-yJ-FRt" id="ln5-lw-spR"/>
                                 </connections>
                             </collectionView>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k4I-b7-dYv">
-                                <rect key="frame" x="0.0" y="129" width="414" height="731"/>
+                                <rect key="frame" x="338" y="129" width="76" height="68"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7MX-av-VoM">
                                         <rect key="frame" x="354" y="58" width="52" height="30"/>
@@ -491,7 +491,7 @@
                         </view>
                     </navigationItem>
                     <connections>
-                        <outlet property="collectionview" destination="Z0M-Z2-eEe" id="8nQ-EK-scY"/>
+                        <outlet property="collectionview" destination="OtS-S1-ugP" id="ctJ-NS-UPS"/>
                         <outlet property="leadingc" destination="gUn-kk-U9M" id="axX-an-Tob"/>
                         <outlet property="shade" destination="UNa-xn-wvI" id="HJa-Aq-f1x"/>
                         <outlet property="shadeButton" destination="zye-Pr-I7g" id="ry5-KN-RU2"/>

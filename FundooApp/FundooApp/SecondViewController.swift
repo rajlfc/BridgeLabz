@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 class SecondViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIGestureRecognizerDelegate {
+    var conditionTest:Bool = true
+    var changeborder = false
     fileprivate var longPressGesture: UILongPressGestureRecognizer!
     @IBOutlet weak var takeNoteButton: UIButton!
     //@IBOutlet weak var buttoncell: UIButton!
@@ -34,6 +36,7 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     @IBOutlet weak var imagelabel: UILabel!
     //let first = ViewController()
     @IBOutlet weak var collectionview: UICollectionView!
+    
     var ham : Bool = false
     @IBOutlet weak var textlabel: UILabel!
     override func viewDidLoad() {
@@ -85,12 +88,17 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
         collectionview.addGestureRecognizer(longPressGesture)
-        let lpgr : UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer:)))
-        lpgr.minimumPressDuration = 0.5
-        lpgr.delegate = self as! UIGestureRecognizerDelegate
-        lpgr.delaysTouchesBegan = true
-        self.collectionview?.addGestureRecognizer(lpgr)
-        
+       // let longpress = UILongPressGestureRecognizer(target: self, action: #selector(handlelongpress(sender:)))
+        //collectionview.addGestureRecognizer(longpress)
+//        let lpgr : UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer:)))
+//        lpgr.minimumPressDuration = 0.5
+//        lpgr.delegate = self as! UIGestureRecognizerDelegate
+//        lpgr.delaysTouchesBegan = true
+//        self.collectionview?.addGestureRecognizer(lpgr)
+          collectionview.allowsMultipleSelection = true
+    }
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     func collectinArray()->[Any]{
         
@@ -132,7 +140,7 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     }
     // let array:[String] = ["2","3","4","5"]
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(noteList.count)
+        print("i am here \(noteList.count)")
         return noteList.count
     }
     
@@ -157,6 +165,11 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
 //        editButton.addTarget(self, action: #selector(getter: editButtonItem), for: UIControl.Event.touchUpInside)
 //        
 //        cell2.addSubview(editButton)
+          if changeborder
+          {
+            cell2.layer.borderWidth = 3
+            cell2.layer.borderColor = UIColor.black.cgColor
+        }
 //        cell2.layer.borderWidth = 5
 //        cell2.layer.borderColor = UIColor.black.cgColor
         var condition = true
@@ -167,10 +180,14 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
        // }
        // else if item is Text{
             //cell2.textLabel?.text = (item as! Text).text
+            cell2.isUserInteractionEnabled = true
             cell2.textlabel.text = (item as! Text).texttitle
             cell2.textview.text = (item as! Text).textnote
-        
-        cell2.backgroundColor = loadCellColor((item as! Text).texttitle)
+      //  if conditionTest{
+            cell2.backgroundColor = loadCellColor((item as! Text).texttitle)
+  //  }else{
+           // cell2.backgroundColor = UIColor.lightGray
+       // }
         print("Image button is \((item as! Text).important)")
         if (item as! Text).important
         {
@@ -299,13 +316,27 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     
     @objc func handleLongGesture(gesture: UILongPressGestureRecognizer){
+        let menu = UIMenuController.shared
+        //becomeFirstResponder()
+        let menuItemCrop = UIMenuItem(title: "Crop", action: #selector(handleMenuItemAction))
+        let menuItemRotate = UIMenuItem(title: "Rotate", action: #selector(handleMenuItemAction1))
+        let menuItemContrast = UIMenuItem(title: "Contrast", action: #selector(handleMenuItemAction))
+        //let menuItemVibrance = UIMenuItem(title: "Vibrance", action: #selector(handleMenuItemAction))
+        menu.menuItems = [menuItemCrop, menuItemRotate, menuItemContrast]
+        let location = gesture.location(in: collectionview)
+        let menuLocation = CGRect(x: 0, y: -50, width: 0, height: 0)
+        menu.setTargetRect(menuLocation, in: gesture.view!)
         switch gesture.state {
         case .began:
+            changeborder = true
+            menu.setMenuVisible(true, animated: true)
             guard let selectedIndexPath = collectionview.indexPathForItem(at: gesture.location(in: collectionview)) else{ break }
             collectionview.beginInteractiveMovementForItem(at: selectedIndexPath)
         case .changed:
+            menu.setMenuVisible(false, animated: false)
             collectionview.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
         case .ended:
+           // changeborder = false
             collectionview.endInteractiveMovement()
         default:
             collectionview.cancelInteractiveMovement()
@@ -318,35 +349,29 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         return color!
     }
     
-   @objc func handleLongPress(gestureRecognizer : UILongPressGestureRecognizer)->UICollectionViewCell{
-
-        var cell3 : UICollectionViewCell?
-
-        if (gestureRecognizer.state != UIGestureRecognizer.State.ended){
-            //return
-
-        }
-
-        let p = gestureRecognizer.location(in: self.collectionview)
-
-        if let indexPath : NSIndexPath = (self.collectionview.indexPathForItem(at: p) as NSIndexPath?)
-        {
-            //do whatever you need to do
-            cell3 = collectionview.dequeueReusableCell(withReuseIdentifier: "cell", for: (indexPath as NSIndexPath) as IndexPath)
-            print(cell3)
-//            if cell2.isSelected
-            //{
-                print("if")
-            cell3!.layer.borderWidth = 4
-            print(cell3!.layer.borderWidth)
-            cell3!.layer.borderColor = UIColor.black.cgColor
-            //}
-            print("Selected")
-
-        }
-        return cell3!
-  }
-    
+//    @objc func handlelongpress(sender:UILongPressGestureRecognizer)
+//    {
+//        if sender.state == .began && sender.state != .changed
+//        {
+//            let menu = UIMenuController.shared
+//            becomeFirstResponder()
+//            let menuItemCrop = UIMenuItem(title: "Crop", action: #selector(handleMenuItemAction))
+//            let menuItemRotate = UIMenuItem(title: "Rotate", action: #selector(handleMenuItemAction1))
+//            let menuItemContrast = UIMenuItem(title: "Contrast", action: #selector(handleMenuItemAction))
+//            let menuItemVibrance = UIMenuItem(title: "Vibrance", action: #selector(handleMenuItemAction))
+//            menu.menuItems = [menuItemCrop, menuItemRotate, menuItemContrast, menuItemVibrance]
+//            let location = sender.location(in: sender.view)
+//            let menuLocation = CGRect(x: location.x, y: location.y, width: 0, height: 0)
+//            menu.setTargetRect(menuLocation, in: sender.view!)
+//            menu.setMenuVisible(true, animated: true)
+//        }
+//    }
+    @objc func handleMenuItemAction() {
+        print("menu item tapped")
+    }
+    @objc func handleMenuItemAction1() {
+        print("menu item tapped rotate")
+    }
     
     
 }
