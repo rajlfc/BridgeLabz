@@ -17,8 +17,12 @@ class Image{
 class Text{
     var texttitle: String
     var textnote: String
-    init(texttitle: String,textnote:String) {
+    var important:Bool
+    var index : Int
+    init(texttitle: String,textnote:String,index:Int,important:Bool) {
         self.texttitle = texttitle
         self.textnote = textnote
+        self.index = index
+        self.important = important
     }
 }

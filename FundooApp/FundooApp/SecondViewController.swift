@@ -8,37 +8,61 @@
 
 import UIKit
 import CoreData
-class SecondViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
-    
+class SecondViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIGestureRecognizerDelegate {
+    fileprivate var longPressGesture: UILongPressGestureRecognizer!
     @IBOutlet weak var takeNoteButton: UIButton!
+    //@IBOutlet weak var buttoncell: UIButton!
+    @IBOutlet weak var button: UIButton!
     @IBOutlet weak var result: UILabel!
+    //@IBOutlet weak var buttoncell: UIButton!
     @IBOutlet weak var viewnew: UIView!
     @IBOutlet weak var trailingc: NSLayoutConstraint!
     @IBOutlet weak var shade: UIView!
+    @IBOutlet weak var buttonhide: UIButton!
+    @IBOutlet weak var buttonc: UIButton!
     @IBOutlet weak var shadeButton: UIButton!
+    @IBOutlet weak var buttoncel: UIButton!
     var result1:[NSManagedObject] = []
-    var images:[Any] = []
+    var noteList:[Any] = []
+    var ordrArry:[Int] = []
+    var loadIndex:[Int] = []
+    var noteList2:[Text] = []
+    var b : Bool?
     var n : String?
     var m : String?
     @IBOutlet weak var leadingc: NSLayoutConstraint!
+    @IBOutlet weak var imagelabel: UILabel!
     //let first = ViewController()
     @IBOutlet weak var collectionview: UICollectionView!
     var ham : Bool = false
     @IBOutlet weak var textlabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        let itemsize = UIScreen.main.bounds.width/3 - 3
+        //buttonhide.isHidden = true
+        noteList = collectinArray()
+        var ordrArry = retrieveOrderNotes()
+        print("did load \(ordrArry)")
+        if ordrArry?.count != 0 {
+            print("retrieved after load = \(ordrArry)")
+            noteList2 = Array(repeating: Text(texttitle: "", textnote: "", index: 0, important: false), count: noteList.count)
+            for i in 0 ..< noteList.count{
+                noteList2[i] = noteList[ordrArry![i]] as! Text
+            }
+        }else{
+            noteList2 = noteList as! [Text]
+        }
+        let itemsize = UIScreen.main.bounds.width/3-3
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20,left: 0,bottom: 10,right: 0)
         layout.itemSize = CGSize(width: itemsize, height: itemsize)
-        layout.minimumInteritemSpacing = 1
-        layout.minimumLineSpacing = 1
+        layout.minimumInteritemSpacing = 3
+        layout.minimumLineSpacing = 3
         collectionview.collectionViewLayout = layout
         leadingc.constant = -414
         trailingc.constant = -414
         shade.isHidden = true
           shadeButton.isHidden = true
-        images = collectinArray()
+        noteList = collectinArray()
         //shade.backgroundColor = UIColor(white: 1, alpha: 0.5)
         // Do any additional setup after loading the view.
         //textlabel.text = first.pract()
@@ -47,19 +71,25 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
         //request.predicate = NSPredicate(format: "age = %@", "12")
         request.returnsObjectsAsFaults = false
-        do {
-            let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                n = data.value(forKey: "title") as? String
-                print(n)
-            }
-            
-        } catch {
-            
-            print("Failed")
-        }
+//        do {
+//            let result = try context.fetch(request)
+//            for data in result as! [NSManagedObject] {
+//                n = data.value(forKey: "title") as? String
+//                print(n)
+//            }
+//            
+//        } catch {
+//            
+//            print("Failed")
+//        }
         
-        
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongGesture(gesture:)))
+        collectionview.addGestureRecognizer(longPressGesture)
+        let lpgr : UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(gestureRecognizer:)))
+        lpgr.minimumPressDuration = 0.5
+        lpgr.delegate = self as! UIGestureRecognizerDelegate
+        lpgr.delaysTouchesBegan = true
+        self.collectionview?.addGestureRecognizer(lpgr)
         
     }
     func collectinArray()->[Any]{
@@ -73,12 +103,20 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         request.returnsObjectsAsFaults = false
         do {
             let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
+            for i in 0 ..< result.count{
+                let data: NSManagedObject = result[i] as! NSManagedObject
                 n = data.value(forKey: "title") as? String
                 m = data.value(forKey: "note") as? String
-                if n != nil{
+                b = (data.value(forKey: "important") as? Bool)
+                print("boolean is \(b)")
+                if n != nil {
                     //var text3 = Text(text: n!)
-                    var text3 = Text(texttitle: n!, textnote: m!)
+                    if b == nil
+                    {
+                        b = false
+                    }
+                    print("b is \(b)")
+                    var text3 = Text(texttitle: n!, textnote: m!, index: i, important: b!)
                     tempArray.append(text3)
                 }
             }
@@ -94,12 +132,12 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     }
     // let array:[String] = ["2","3","4","5"]
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(images.count)
-        return images.count
+        print(noteList.count)
+        return noteList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var item = images[indexPath.item]
+        var item = noteList2[indexPath.item]
 //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imagecell", for: indexPath) as! myCell
         //        if selectedRow == indexPath.row {
         //            cell.layer.borderColor = UIColor.blue.cgColor
@@ -119,22 +157,42 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
 //        editButton.addTarget(self, action: #selector(getter: editButtonItem), for: UIControl.Event.touchUpInside)
 //        
 //        cell2.addSubview(editButton)
-        cell2.layer.borderWidth = 5
-        cell2.layer.borderColor = UIColor.black.cgColor
+//        cell2.layer.borderWidth = 5
+//        cell2.layer.borderColor = UIColor.black.cgColor
         var condition = true
-      if item is Image{
+     // if item is Image{
 //            //cell.Image.image = (item as! Image).image
 //             cell.imageview.image = (item as! Image).image
 //            // cell.setImage(image: item as! Image)
-        }
-        else if item is Text{
+       // }
+       // else if item is Text{
             //cell2.textLabel?.text = (item as! Text).text
             cell2.textlabel.text = (item as! Text).texttitle
             cell2.textview.text = (item as! Text).textnote
         
-        //cell2.contentView.backgroundColor = UserDefaults.standard.object(forKey: "color") as! UIColor
-            condition = false
+        cell2.backgroundColor = loadCellColor((item as! Text).texttitle)
+        print("Image button is \((item as! Text).important)")
+        if (item as! Text).important
+        {
+            print("if image")
+            let origImage = UIImage(named: "image4")
+            let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+            cell2.buttonc.setImage(tintedImage, for: .normal)
+            cell2.buttonc.tintColor = .yellow
         }
+        //cell2.contentView.backgroundColor = UserDefaults.standard.object(forKey: "color") as! UIColor
+//        let decodedColorsData  = UserDefaults.standard.object(forKey: "ColorsKey")
+//        cell2.contentView.backgroundColor = decodedColorsData as! UIColor
+        print("........")
+        let main = UIStoryboard(name: "Main", bundle: nil)
+        let first = main.instantiateViewController(withIdentifier: "NoteOpen") as! NoteOpenViewController
+        print("first..\(first.c)")
+        //print(cell2.textlabel.text)
+        //cell2.contentView.backgroundColor = UserDefaults.standard.color(forKey: cell2.textlabel.text!)
+//        cell2.textlabel.backgroundColor = UserDefaults.standard.color(forKey: cell2.textlabel.text!)
+//        cell2.textview.backgroundColor = UserDefaults.standard.color(forKey: cell2.textlabel.text!)
+        //    condition = false
+       // }
          return cell2
         //return condition ? cell:cell2
     }
@@ -142,8 +200,8 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         print("hi")
         let main = UIStoryboard(name: "Main", bundle: nil)
         let first = main.instantiateViewController(withIdentifier: "NoteOpen") as! NoteOpenViewController
-        first.c = (images[indexPath.item] as! Text).texttitle
-        first.d = (images[indexPath.item] as! Text).textnote
+        first.c = (noteList2[indexPath.item] as! Text).texttitle
+        first.d = (noteList2[indexPath.item] as! Text).textnote
         self.present(first, animated: true, completion: nil)
     }
     
@@ -151,7 +209,7 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     
     @IBAction func onbutton(_ sender: Any) {
-        
+        print("clicked")
         if !ham{
             takeNoteButton.isHidden = true
             shade.isHidden = false
@@ -209,6 +267,85 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         shade.isHidden = true
         takeNoteButton.isHidden = false
     }
+    
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let temp = noteList2.remove(at: sourceIndexPath.item)
+        noteList2.insert(temp,at: destinationIndexPath.item)
+        
+        loadIndex = Array(repeating: 0, count: noteList2.count)
+      
+        for i in 0 ..< noteList2.count{
+            loadIndex[i] = noteList2[i].index
+        }
+          print("printing----\(loadIndex)")
+       // UserDefaults.standard.removeObject(forKey: "Index")
+        let defaults = UserDefaults.standard
+        defaults.set(loadIndex, forKey: "Index")
+        print("retrieved \(retrieveOrderNotes())")
+        
+        
+    }
+    
+    func retrieveOrderNotes()->[Int]?{
+        let defaults = UserDefaults.standard
+        let array = defaults.array(forKey: "Index") as? [Int] ?? [Int]()
+        return array
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    
+    @objc func handleLongGesture(gesture: UILongPressGestureRecognizer){
+        switch gesture.state {
+        case .began:
+            guard let selectedIndexPath = collectionview.indexPathForItem(at: gesture.location(in: collectionview)) else{ break }
+            collectionview.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            collectionview.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
+        case .ended:
+            collectionview.endInteractiveMovement()
+        default:
+            collectionview.cancelInteractiveMovement()
+        }
+    }
+    
+    func loadCellColor(_ title: String)-> UIColor{
+        let defaults = UserDefaults.standard
+        var color = defaults.color(forKey: title)
+        return color!
+    }
+    
+   @objc func handleLongPress(gestureRecognizer : UILongPressGestureRecognizer)->UICollectionViewCell{
+
+        var cell3 : UICollectionViewCell?
+
+        if (gestureRecognizer.state != UIGestureRecognizer.State.ended){
+            //return
+
+        }
+
+        let p = gestureRecognizer.location(in: self.collectionview)
+
+        if let indexPath : NSIndexPath = (self.collectionview.indexPathForItem(at: p) as NSIndexPath?)
+        {
+            //do whatever you need to do
+            cell3 = collectionview.dequeueReusableCell(withReuseIdentifier: "cell", for: (indexPath as NSIndexPath) as IndexPath)
+            print(cell3)
+//            if cell2.isSelected
+            //{
+                print("if")
+            cell3!.layer.borderWidth = 4
+            print(cell3!.layer.borderWidth)
+            cell3!.layer.borderColor = UIColor.black.cgColor
+            //}
+            print("Selected")
+
+        }
+        return cell3!
+  }
     
     
     

@@ -19,6 +19,7 @@ struct Inventory : Codable {
 class ViewController: UIViewController {
     var myArrayofRiceInventory = [Inventory]()
     
+    @IBOutlet weak var loginbutton: UIButton!
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var imagetop: UIImageView!
     @IBOutlet weak var imagebelow: UIImageView!
@@ -104,6 +105,10 @@ class ViewController: UIViewController {
         self.present(first, animated: true, completion: nil)
     }
     
+    @IBAction func loginbutton(_ sender: Any) {
+        
+        performSegue(withIdentifier: "mysegue", sender: self)
+    }
 }
 
 

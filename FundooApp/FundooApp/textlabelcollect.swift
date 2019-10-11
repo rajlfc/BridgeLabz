@@ -12,4 +12,7 @@ class textlabelcollect: UICollectionViewCell {
     
     @IBOutlet weak var textlabel: UILabel!
     @IBOutlet weak var textview: UITextView!
+    
+    @IBOutlet weak var buttonc: UIButton!
+    
 }

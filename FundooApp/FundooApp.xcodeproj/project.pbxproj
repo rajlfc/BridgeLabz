@@ -64,6 +64,7 @@
 		840429EE23435D9900FEEF09 /* myCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myCell.swift; sourceTree = "<group>"; };
 		8404D3632345C18D0091942C /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		8404D3652345C1A40091942C /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		8405649B234F00B600D39EC0 /* FundooApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FundooApp.entitlements; sourceTree = "<group>"; };
 		840741612338860700AD21A4 /* alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alert.swift; sourceTree = "<group>"; };
 		840741632338937B00AD21A4 /* FourthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthViewController.swift; sourceTree = "<group>"; };
 		84074165233896BE00AD21A4 /* FifthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +110,7 @@
 		840068BA23348D7000400774 /* FundooApp */ = {
 			isa = PBXGroup;
 			children = (
+				8405649B234F00B600D39EC0 /* FundooApp.entitlements */,
 				8400691523362D3400400774 /* login.json */,
 				840068BB23348D7000400774 /* AppDelegate.swift */,
 				840741612338860700AD21A4 /* alert.swift */,
@@ -194,6 +196,11 @@
 				TargetAttributes = {
 					840068B723348D7000400774 = {
 						CreatedOnToolsVersion = 10.3;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					840068CB23348D7200400774 = {
 						CreatedOnToolsVersion = 10.3;
@@ -424,7 +431,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FundooApp/FundooApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HMAGA9D96J;
 				INFOPLIST_FILE = FundooApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -441,7 +450,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FundooApp/FundooApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HMAGA9D96J;
 				INFOPLIST_FILE = FundooApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
