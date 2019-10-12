@@ -9,6 +9,35 @@
 import UIKit
 import CoreData
 class SecondViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIGestureRecognizerDelegate {
+    
+    @IBOutlet weak var noofselects: UILabel!
+    @IBOutlet weak var collectionview: UICollectionView!
+    var count = 0
+    enum Mode{
+        
+        case view
+        case select
+    }
+    var mMode: Mode = .view {
+        didSet {
+            switch mMode {
+                 case .view:
+                    for (key, value) in dictionarySelectedIndecPath {
+                        if value {
+                            collectionview.deselectItem(at: key, animated: true)
+                        }
+                    }
+                    
+                    dictionarySelectedIndecPath.removeAll()
+
+                    collectionview.allowsMultipleSelection = false
+            case .select:
+                    collectionview.allowsMultipleSelection = true
+                
+            }
+        }
+    }
+    @IBOutlet weak var viewup: UIView!
     var conditionTest:Bool = true
     var changeborder = false
     fileprivate var longPressGesture: UILongPressGestureRecognizer!
@@ -35,13 +64,14 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     @IBOutlet weak var leadingc: NSLayoutConstraint!
     @IBOutlet weak var imagelabel: UILabel!
     //let first = ViewController()
-    @IBOutlet weak var collectionview: UICollectionView!
+     var dictionarySelectedIndecPath: [IndexPath: Bool] = [:]
     
     var ham : Bool = false
     @IBOutlet weak var textlabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         //buttonhide.isHidden = true
+        viewup.isHidden = true
         noteList = collectinArray()
         var ordrArry = retrieveOrderNotes()
         print("did load \(ordrArry)")
@@ -214,12 +244,32 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         //return condition ? cell:cell2
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("hi")
-        let main = UIStoryboard(name: "Main", bundle: nil)
-        let first = main.instantiateViewController(withIdentifier: "NoteOpen") as! NoteOpenViewController
-        first.c = (noteList2[indexPath.item] as! Text).texttitle
-        first.d = (noteList2[indexPath.item] as! Text).textnote
-        self.present(first, animated: true, completion: nil)
+        //print("hi")
+        //count = 0
+        count = count + 1
+        noofselects.text = String(count)
+        switch mMode {
+        case .view:
+            collectionView.deselectItem(at: indexPath, animated: true)
+            let main = UIStoryboard(name: "Main", bundle: nil)
+            let first = main.instantiateViewController(withIdentifier: "NoteOpen") as! NoteOpenViewController
+            first.c = (noteList2[indexPath.item] as! Text).texttitle
+            first.d = (noteList2[indexPath.item] as! Text).textnote
+            self.present(first, animated: true, completion: nil)
+        case .select:
+            dictionarySelectedIndecPath[indexPath] = true
+        
+    }
+
+    
+    }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        if mMode == .select
+        {
+            dictionarySelectedIndecPath[indexPath] = false
+        }
+        
     }
     
     
@@ -316,29 +366,34 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     
     @objc func handleLongGesture(gesture: UILongPressGestureRecognizer){
-        let menu = UIMenuController.shared
-        //becomeFirstResponder()
-        let menuItemCrop = UIMenuItem(title: "Crop", action: #selector(handleMenuItemAction))
-        let menuItemRotate = UIMenuItem(title: "Rotate", action: #selector(handleMenuItemAction1))
-        let menuItemContrast = UIMenuItem(title: "Contrast", action: #selector(handleMenuItemAction))
-        //let menuItemVibrance = UIMenuItem(title: "Vibrance", action: #selector(handleMenuItemAction))
-        menu.menuItems = [menuItemCrop, menuItemRotate, menuItemContrast]
-        let location = gesture.location(in: collectionview)
-        let menuLocation = CGRect(x: 0, y: -50, width: 0, height: 0)
-        menu.setTargetRect(menuLocation, in: gesture.view!)
+//        let menu = UIMenuController.shared
+//        //becomeFirstResponder()
+//        let menuItemCrop = UIMenuItem(title: "Crop", action: #selector(handleMenuItemAction))
+//        let menuItemRotate = UIMenuItem(title: "Rotate", action: #selector(handleMenuItemAction1))
+//        let menuItemContrast = UIMenuItem(title: "Contrast", action: #selector(handleMenuItemAction))
+//        //let menuItemVibrance = UIMenuItem(title: "Vibrance", action: #selector(handleMenuItemAction))
+//        menu.menuItems = [menuItemCrop, menuItemRotate, menuItemContrast]
+//        let location = gesture.location(in: gesture.view)
+//        let menuLocation = CGRect(x: 0, y: -50, width: 0, height: 0)
+//        menu.setTargetRect(menuLocation, in: gesture.view!)
         switch gesture.state {
         case .began:
             changeborder = true
-            menu.setMenuVisible(true, animated: true)
+            viewup.isHidden = false
+            count = 0
+            mMode = mMode == .view ? .select : .view
+//            menu.setMenuVisible(true, animated: true)
             guard let selectedIndexPath = collectionview.indexPathForItem(at: gesture.location(in: collectionview)) else{ break }
             collectionview.beginInteractiveMovementForItem(at: selectedIndexPath)
         case .changed:
-            menu.setMenuVisible(false, animated: false)
+//            menu.setMenuVisible(false, animated: false)
             collectionview.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
         case .ended:
            // changeborder = false
+            //viewup.isHidden = true
             collectionview.endInteractiveMovement()
         default:
+            viewup.isHidden = true
             collectionview.cancelInteractiveMovement()
         }
     }
@@ -373,5 +428,11 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         print("menu item tapped rotate")
     }
     
+    @IBAction func cancelselection(_ sender: Any) {
+        
+        viewup.isHidden = true
+        mMode = mMode == .view ? .select : .view
+        count = 0
+    }
     
 }

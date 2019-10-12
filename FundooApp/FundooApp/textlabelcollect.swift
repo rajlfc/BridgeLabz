@@ -14,5 +14,20 @@ class textlabelcollect: UICollectionViewCell {
     @IBOutlet weak var textview: UITextView!
     @IBOutlet weak var buttonc: UIButton!
     
+    @IBOutlet weak var selectedview: UIImageView!
+    @IBOutlet weak var highlightedview: UIView!
+    
+    override var isHighlighted: Bool {
+        didSet {
+            highlightedview.isHidden = !isHighlighted
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            highlightedview.isHidden = !isSelected
+            selectedview.isHidden = !isSelected
+        }
+    }
     
 }
