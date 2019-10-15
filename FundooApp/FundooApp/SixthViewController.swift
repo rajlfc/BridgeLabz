@@ -13,6 +13,7 @@ class SixthViewController: UIViewController {
     @IBOutlet weak var viewslide: UIView!
     @IBOutlet weak var titlefield: UITextView!
     @IBOutlet weak var notefield: UITextView!
+    //var collection = false
     var ham = false
    // NSLayoutConstraint!
     var mark = false
@@ -52,9 +53,13 @@ class SixthViewController: UIViewController {
     @IBAction func backtoprev(_ sender: Any) {
         
         
-        let main = UIStoryboard(name: "Main", bundle: nil)
-        let first = main.instantiateViewController(withIdentifier: "SecondVC")
-        self.present(first, animated: true, completion: nil)
+        
+            let main = UIStoryboard(name: "Main", bundle: nil)
+            let first = main.instantiateViewController(withIdentifier: "SecondVC")
+            self.present(first, animated: true, completion: nil)
+        
+        
+        
     }
     
     @IBAction func onsave(_ sender: Any) {
@@ -68,6 +73,7 @@ class SixthViewController: UIViewController {
         
         newUser.setValue(titlefield.text, forKey: "title")
         newUser.setValue(notefield.text, forKey: "note")
+        newUser.setValue(false, forKey: "archive")
         print("mark is \(mark)")
         if mark
         {

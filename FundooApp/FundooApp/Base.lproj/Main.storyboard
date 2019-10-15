@@ -456,36 +456,17 @@
                                     <outlet property="delegate" destination="iyV-yJ-FRt" id="ln5-lw-spR"/>
                                 </connections>
                             </collectionView>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k4I-b7-dYv">
-                                <rect key="frame" x="338" y="129" width="76" height="68"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EdU-CW-JYr">
+                                <rect key="frame" x="0.0" y="84" width="414" height="768"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7MX-av-VoM">
-                                        <rect key="frame" x="354" y="58" width="52" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gl5-nH-jEB">
+                                        <rect key="frame" x="347" y="106" width="46" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Archive"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="buttontoarchive:" destination="iyV-yJ-FRt" eventType="touchUpInside" id="jsh-fD-mc5"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Lv-j7-Ppf">
-                                        <rect key="frame" x="347" y="106" width="66" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Settings"/>
-                                    </button>
-                                    <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UNa-xn-wvI">
-                                        <rect key="frame" x="150" y="-4" width="264" height="774"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zye-Pr-I7g">
-                                                <rect key="frame" x="189" y="0.0" width="75" height="727"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal">
-                                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="shadeAction:" destination="iyV-yJ-FRt" eventType="touchUpInside" id="dCA-mI-Fzw"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.65337515177510841" green="0.6710967125021261" blue="0.66133663138046694" alpha="0.39198951198630139" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -497,6 +478,9 @@
                                         <rect key="frame" x="173" y="-6" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" backgroundImage="image5"/>
+                                        <connections>
+                                            <action selector="archivenotes:" destination="iyV-yJ-FRt" eventType="touchUpInside" id="LE3-Nn-2h7"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Archive" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Hi-Qd-0N6">
                                         <rect key="frame" x="167" y="42" width="62" height="21"/>
@@ -523,13 +507,20 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGK-AP-V65">
+                                <rect key="frame" x="158" y="149" width="256" height="626"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="slideout:" destination="iyV-yJ-FRt" eventType="touchUpInside" id="jhC-Wd-pxL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="k4I-b7-dYv" firstAttribute="trailing" secondItem="yxg-3P-q9P" secondAttribute="trailing" id="WCM-KK-f9x"/>
-                            <constraint firstItem="yxg-3P-q9P" firstAttribute="bottom" secondItem="k4I-b7-dYv" secondAttribute="bottom" constant="10" id="g9s-Z6-vbR"/>
-                            <constraint firstItem="k4I-b7-dYv" firstAttribute="leading" secondItem="yxg-3P-q9P" secondAttribute="leading" id="gUn-kk-U9M"/>
-                            <constraint firstItem="k4I-b7-dYv" firstAttribute="top" secondItem="yxg-3P-q9P" secondAttribute="top" constant="40" id="tZP-CW-uMp"/>
+                            <constraint firstItem="yxg-3P-q9P" firstAttribute="bottom" secondItem="EdU-CW-JYr" secondAttribute="bottom" constant="10" id="Fsu-Bq-51o"/>
+                            <constraint firstItem="EdU-CW-JYr" firstAttribute="trailing" secondItem="yxg-3P-q9P" secondAttribute="trailing" id="Siy-rZ-Jjt"/>
+                            <constraint firstItem="EdU-CW-JYr" firstAttribute="top" secondItem="yxg-3P-q9P" secondAttribute="top" constant="40" id="Tc6-AC-a6R"/>
+                            <constraint firstItem="EdU-CW-JYr" firstAttribute="leading" secondItem="yxg-3P-q9P" secondAttribute="leading" id="rrN-j0-XR4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yxg-3P-q9P"/>
                     </view>
@@ -543,14 +534,13 @@
                         </view>
                     </navigationItem>
                     <connections>
+                        <outlet property="buttonslideout" destination="CGK-AP-V65" id="M7m-aB-KYY"/>
                         <outlet property="collectionview" destination="OtS-S1-ugP" id="ctJ-NS-UPS"/>
-                        <outlet property="leadingc" destination="gUn-kk-U9M" id="axX-an-Tob"/>
+                        <outlet property="lead" destination="rrN-j0-XR4" id="zfn-Ql-dRN"/>
                         <outlet property="noofselects" destination="yH8-3I-VI8" id="tOJ-4j-HqU"/>
-                        <outlet property="shade" destination="UNa-xn-wvI" id="HJa-Aq-f1x"/>
-                        <outlet property="shadeButton" destination="zye-Pr-I7g" id="ry5-KN-RU2"/>
                         <outlet property="takeNoteButton" destination="H7f-it-E8a" id="bev-oP-bVx"/>
-                        <outlet property="trailingc" destination="WCM-KK-f9x" id="hUz-Ku-bcl"/>
-                        <outlet property="viewnew" destination="k4I-b7-dYv" id="DPl-cl-W0T"/>
+                        <outlet property="trail" destination="Siy-rZ-Jjt" id="XDB-fm-xWK"/>
+                        <outlet property="viewslide" destination="EdU-CW-JYr" id="Q5q-uk-dsk"/>
                         <outlet property="viewup" destination="0jo-J8-PGB" id="7cB-Q9-zWI"/>
                     </connections>
                 </viewController>
@@ -762,6 +752,16 @@
                                     <action selector="bottomtotop:" destination="sX0-x9-O0E" eventType="touchUpInside" id="NNm-TX-FAH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGj-fL-TSq">
+                                <rect key="frame" x="296" y="202" width="98" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Unarchive">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="unarchivenote:" destination="sX0-x9-O0E" eventType="touchUpInside" id="FCi-My-Vx4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -780,11 +780,93 @@
                         <outlet property="noteview" destination="08j-Hu-AgU" id="fH7-ih-vUv"/>
                         <outlet property="titleview" destination="8AC-cx-Ac8" id="6yH-Y4-ZBN"/>
                         <outlet property="topview" destination="GGy-hv-F2H" id="Tn4-mE-RRF"/>
+                        <outlet property="unarchive" destination="vGj-fL-TSq" id="gc7-di-gTU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fjs-3F-a8H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1957.9710144927537" y="-684.375"/>
+        </scene>
+        <!--Archive Controller-->
+        <scene sceneID="Q92-bn-nm7">
+            <objects>
+                <viewController restorationIdentifier="ArchiveVC" storyboardIdentifier="ArchiveVC" id="dv4-0a-WrG" customClass="ArchiveController" customModule="FundooApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MGg-ST-dBM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="neJ-EK-KEN">
+                                <rect key="frame" x="0.0" y="115" width="414" height="433"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zBm-yb-vuV">
+                                    <size key="itemSize" width="122" height="89"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="Oge-mc-xX2" customClass="archivecell" customModule="FundooApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="122" height="89"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="122" height="89"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wnz-fl-m2U">
+                                                    <rect key="frame" x="20" y="0.0" width="41" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="I am details" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clg-cD-vFz">
+                                                    <rect key="frame" x="0.0" y="28" width="122" height="61"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="textarchivelabel" destination="Wnz-fl-m2U" id="XOr-eG-eRv"/>
+                                            <outlet property="textarchiveview" destination="clg-cD-vFz" id="aW2-8l-dtU"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="dv4-0a-WrG" id="LWT-tk-lXn"/>
+                                    <outlet property="delegate" destination="dv4-0a-WrG" id="xtL-L0-ujZ"/>
+                                </connections>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f38-ze-LmY">
+                                <rect key="frame" x="326" y="60" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="backtosecond:" destination="dv4-0a-WrG" eventType="touchUpInside" id="nBA-So-tef"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFd-Tc-QQC">
+                                <rect key="frame" x="326" y="98" width="69" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Unarchive"/>
+                                <connections>
+                                    <action selector="unarchive:" destination="dv4-0a-WrG" eventType="touchUpInside" id="qUs-SF-iyy"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="G3e-Dv-Vby"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionview" destination="neJ-EK-KEN" id="72K-qT-2rJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TPS-Re-kGW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2808.6956521739135" y="-694.41964285714278"/>
         </scene>
     </scenes>
     <resources>

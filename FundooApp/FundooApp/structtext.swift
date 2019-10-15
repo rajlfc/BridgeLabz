@@ -19,10 +19,12 @@ class Text{
     var textnote: String
     var important:Bool
     var index : Int
-    init(texttitle: String,textnote:String,index:Int,important:Bool) {
+    var archive : Bool
+    init(texttitle: String,textnote:String,index:Int,important:Bool,archive:Bool) {
         self.texttitle = texttitle
         self.textnote = textnote
         self.index = index
         self.important = important
+        self.archive = archive
     }
 }

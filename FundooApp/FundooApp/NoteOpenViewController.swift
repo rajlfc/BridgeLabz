@@ -10,11 +10,14 @@ import UIKit
 import CoreData
 class NoteOpenViewController: UIViewController {
 
+    @IBOutlet weak var unarchive: UIButton!
     @IBOutlet weak var titleview: UITextView!
-    
+    var collection = false
+    var index : Int?
     @IBOutlet weak var button3: UIButton!
     @IBOutlet weak var button2: UIButton!
     @IBOutlet weak var button1: UIButton!
+    var checkarray :[Text] = []
     var noteIndex: Int = 0
     @IBOutlet weak var bottomview: NSLayoutConstraint!
     @IBOutlet weak var topview: NSLayoutConstraint!
@@ -30,11 +33,13 @@ class NoteOpenViewController: UIViewController {
     @IBOutlet weak var viewtop: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        unarchive.isHidden = true
         //self.view.sendSubviewToBack(fullview)
         //print(button1.isSelected)
         
-        print(c)
-        print(d)
+//        print(c)
+//        print(d)
+//        print("You are here fucker \(checkarray.count)")
         titleview.text = c
         noteview.text = d
         view.backgroundColor = UIColor.red
@@ -47,6 +52,10 @@ class NoteOpenViewController: UIViewController {
         button1.clipsToBounds = true
         button2.layer.cornerRadius = 15
         button3.layer.cornerRadius = 15
+        if collection
+        {
+            unarchive.isHidden = false
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -85,9 +94,26 @@ class NoteOpenViewController: UIViewController {
         }
         UserDefaults.standard.set(self.view.backgroundColor, forKey: titleview.text)
         UserDefaults.standard.set(self.view.backgroundColor, forKey: noteview.text)
-        let main = UIStoryboard(name: "Main", bundle: nil)
-        let vc = main.instantiateViewController(withIdentifier: "SecondVC")
-        self.present(vc, animated: true, completion: nil)
+        if collection == false
+        {
+            let main = UIStoryboard(name: "Main", bundle: nil)
+            let vc = main.instantiateViewController(withIdentifier: "SecondVC")
+            self.present(vc, animated: true, completion: nil)
+        }
+        else
+        {
+            let main = UIStoryboard(name: "Main", bundle: nil)
+            let vc = main.instantiateViewController(withIdentifier: "ArchiveVC") as! ArchiveController
+            let main1 = UIStoryboard(name: "Main", bundle: nil)
+            let vc1 = main.instantiateViewController(withIdentifier: "SecondVC") as! SecondViewController
+            vc.showlist = vc1.archivelist
+            print("i am \(vc1.archivelist)")
+            //print(vc1.returnarray().count)
+            //print(vc1.collectinArray().count)
+            print("I am here asdsfsfa \(checkarray.count)")
+            self.present(vc, animated: true, completion: nil)
+        }
+        
     }
     
     @IBAction func deletenote(_ sender: Any) {
@@ -227,4 +253,69 @@ class NoteOpenViewController: UIViewController {
     
 }
 
+    @IBAction func unarchivenote(_ sender: Any) {
+        
+        print("unarchive")
+        updatecoredata(c: c)
+        let main = UIStoryboard(name: "Main", bundle: nil)
+        let first = main.instantiateViewController(withIdentifier: "SecondVC") as! SecondViewController
+        checkarray = first.collectinArray()
+        checkarray = checkarray.filter({$0.archive != true})
+        //print("hello you \(showlist.count)")
+        for i in 0..<checkarray.count
+        {
+            checkarray[i].index = i
+            if checkarray[i].texttitle == c
+            {
+                index = i
+            }
+        }
+        updateuserdefault(index: index!)
+        
+    }
+    func updatecoredata(c:String)
+    {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "User")
+        fetchRequest.predicate = NSPredicate(format: "title = %@", c)
+        do {
+            let test  = try context.fetch(fetchRequest)
+            
+            let objectUpdate = test[0] as! NSManagedObject
+            //            objectUpdate.setValue(titleview.text, forKey: "title")
+            //            objectUpdate.setValue(noteview.text, forKey: "note")
+            objectUpdate.setValue(false, forKey: "archive")
+            //            objectUpdate.setValue("1234", forKey: "age")
+            //            objectUpdate.setValue("vffgf", forKey: "password")
+            do {
+                try context.save()
+            } catch  {
+                print(error)
+            }
+        } catch  {
+            print(error)
+        }
+        
+    }
+    func updateuserdefault(index : Int)
+    {
+        var indexArr = retrieveOrderNotes()
+        print("i am inside\(indexArr)")
+        var updatedIndexArr = indexArr
+        if indexArr?.count != 0 {
+            for i in 0 ..< updatedIndexArr!.count{
+                if updatedIndexArr![i] >= index{
+                    updatedIndexArr![i] = updatedIndexArr![i]+1
+                }
+            }
+            updatedIndexArr?.insert(index, at: 0)
+              print("i am inside\(indexArr)")
+            UserDefaults.standard.removeObject(forKey: "Index")
+            let defaults = UserDefaults.standard
+            defaults.set(updatedIndexArr, forKey: "Index")
+        }
+        
+    }
 }

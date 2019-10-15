@@ -10,9 +10,17 @@ import UIKit
 import CoreData
 class SecondViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIGestureRecognizerDelegate {
     
+    
+//    @IBOutlet weak var leading: NSLayoutConstraint!
+//    @IBOutlet weak var trailing: NSLayoutConstraint!
+    @IBOutlet weak var viewslide: UIView!
+    var array:[Int] = []
+    @IBOutlet weak var labelDeleteIt: UILabel!
     @IBOutlet weak var noofselects: UILabel!
     @IBOutlet weak var collectionview: UICollectionView!
     var count = 0
+    var collection = false
+    @IBOutlet weak var buttonslideout: UIButton!
     enum Mode{
         
         case view
@@ -48,20 +56,24 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     //@IBOutlet weak var buttoncell: UIButton!
     @IBOutlet weak var viewnew: UIView!
     @IBOutlet weak var trailingc: NSLayoutConstraint!
-    @IBOutlet weak var shade: UIView!
+    @IBOutlet weak var leadingc: NSLayoutConstraint!
+    
     @IBOutlet weak var buttonhide: UIButton!
     @IBOutlet weak var buttonc: UIButton!
-    @IBOutlet weak var shadeButton: UIButton!
     @IBOutlet weak var buttoncel: UIButton!
     var result1:[NSManagedObject] = []
-    var noteList:[Any] = []
+    var noteList:[Text] = []
     var ordrArry:[Int] = []
     var loadIndex:[Int] = []
     var noteList2:[Text] = []
+    var archivelist:[Text] = []
     var b : Bool?
+    var arch : Bool?
     var n : String?
     var m : String?
-    @IBOutlet weak var leadingc: NSLayoutConstraint!
+   
+    @IBOutlet weak var lead: NSLayoutConstraint!
+    @IBOutlet weak var trail: NSLayoutConstraint!
     @IBOutlet weak var imagelabel: UILabel!
     //let first = ViewController()
      var dictionarySelectedIndecPath: [IndexPath: Bool] = [:]
@@ -70,19 +82,48 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     @IBOutlet weak var textlabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        //buttonhide.isHidden = true
+        array.append(1)
+        //buttonslideout.isHidden = true
+       // viewnew.isHidden = false
+//        leadingc.constant = 0
+//        trailingc.constant = 0
+//          leading.constant = -414
+//          trailing.constant = -414
+        lead.constant = -414
+        trail.constant = -414
+      //  UserDefaults.standard.removeObject(forKey: "Index")
+        //viewslide.isHidden = true
         viewup.isHidden = true
         noteList = collectinArray()
+         noteList = noteList.filter({$0.archive != true})
+        //archivelist = noteList.filter({$0.archive != false})
+        for i in 0..<noteList.count
+        {
+            noteList[i].index = i
+        }
+        //print("hftytyftyffgygytftyfty \(archivelist[0].texttitle) \(archivelist[0].archive) \(archivelist[0].textnote)")
+       
         var ordrArry = retrieveOrderNotes()
         print("did load \(ordrArry)")
         if ordrArry?.count != 0 {
             print("retrieved after load = \(ordrArry)")
-            noteList2 = Array(repeating: Text(texttitle: "", textnote: "", index: 0, important: false), count: noteList.count)
+            noteList2 = Array(repeating: Text(texttitle: "", textnote: "", index: 0, important: false, archive: false), count: noteList.count)
             for i in 0 ..< noteList.count{
                 noteList2[i] = noteList[ordrArry![i]] as! Text
             }
         }else{
             noteList2 = noteList as! [Text]
+            loadIndex = Array(repeating: 0, count: noteList2.count)
+            
+            for i in 0 ..< noteList2.count{
+                loadIndex[i] = i
+            }
+            print("printing----\(loadIndex)")
+            // UserDefaults.standard.removeObject(forKey: "Index")
+            let defaults = UserDefaults.standard
+            defaults.set(loadIndex, forKey: "Index")
+            print("retrieved \(retrieveOrderNotes())")
+            
         }
         let itemsize = UIScreen.main.bounds.width/3-3
         let layout = UICollectionViewFlowLayout()
@@ -91,10 +132,8 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         layout.minimumInteritemSpacing = 3
         layout.minimumLineSpacing = 3
         collectionview.collectionViewLayout = layout
-        leadingc.constant = -414
-        trailingc.constant = -414
-        shade.isHidden = true
-          shadeButton.isHidden = true
+        
+
         noteList = collectinArray()
         //shade.backgroundColor = UIColor(white: 1, alpha: 0.5)
         // Do any additional setup after loading the view.
@@ -130,9 +169,9 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     override var canBecomeFirstResponder: Bool {
         return true
     }
-    func collectinArray()->[Any]{
+    func collectinArray()->[Text]{
         
-        var tempArray:[Any] = []
+        var tempArray:[Text] = []
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -146,15 +185,16 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
                 n = data.value(forKey: "title") as? String
                 m = data.value(forKey: "note") as? String
                 b = (data.value(forKey: "important") as? Bool)
-                print("boolean is \(b)")
+                arch = (data.value(forKey: "archive") as? Bool)
+                //print("boolean is \(b)")
                 if n != nil {
                     //var text3 = Text(text: n!)
                     if b == nil
                     {
                         b = false
                     }
-                    print("b is \(b)")
-                    var text3 = Text(texttitle: n!, textnote: m!, index: i, important: b!)
+                    //print("b is \(b)")
+                    var text3 = Text(texttitle: n!, textnote: m!, index: i, important: b!, archive: arch!)
                     tempArray.append(text3)
                 }
             }
@@ -171,7 +211,7 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     // let array:[String] = ["2","3","4","5"]
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("i am here \(noteList.count)")
-        return noteList.count
+        return noteList2.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -255,6 +295,7 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
             let first = main.instantiateViewController(withIdentifier: "NoteOpen") as! NoteOpenViewController
             first.c = (noteList2[indexPath.item] as! Text).texttitle
             first.d = (noteList2[indexPath.item] as! Text).textnote
+            first.checkarray = archivelist
             self.present(first, animated: true, completion: nil)
         case .select:
             dictionarySelectedIndecPath[indexPath] = true
@@ -276,30 +317,55 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     
     @IBAction func onbutton(_ sender: Any) {
-        print("clicked")
+        //print("clicked")
         if !ham{
+            print("hi")
             takeNoteButton.isHidden = true
-            shade.isHidden = false
-            shadeButton.isHidden = false
-            leadingc.constant = -414+150
-            trailingc.constant = -414+150
+//            leadingc.constant = -414+150
+//            trailingc.constant = -414+150
+            //viewnew.isHidden = false
+            //viewslide.isHidden = false
+            lead.constant = -414+150
+            trail.constant = -414+150
+            //viewWillAppear(true)
+//            leading.constant = -414+150
+//            trailing.constant = -414+150
             ham = true
+            print("ham \(ham)")
         }else{
-            shade.isHidden = true
-            shadeButton.isHidden = true
             takeNoteButton.isHidden = false
-            leadingc.constant = -414
-            trailingc.constant = -414
+            //buttonslideout.isHidden = false
+//            leadingc.constant = -414
+//            trailingc.constant = -414
+//            leading.constant = -414
+//            trailing.constant = -414
+            lead.constant = -414
+            trail.constant = -414
+            //viewslide.isHidden = true
+            //viewDidAppear(true)
             ham = false
+            print("hielse")
+             print("ham \(ham)")
         }
         
         UIView.animate(withDuration: 0.4, delay: 0.0, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
         }) { (animationcomplete) in
-            print("hi")
+            print("hithere")
         }
         
     }
+//    override func viewWillAppear(_ animated: Bool){
+//
+//            viewslide.transform = CGAffineTransform(translationX: 0, y: -viewslide.frame.height)
+//    }
+//
+//    override func viewDidAppear(_ animated: Bool) {
+//
+//            UIView.animate(withDuration: 0.25) {
+//                self.viewslide.transform = .identity
+//        }
+//    }
 //    @IBAction func onbuttonpressed(_ sender: Any) {
 //        
 //        
@@ -327,13 +393,7 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         performSegue(withIdentifier: "connectnote", sender: self)
     }
     
-    @IBAction func shadeAction(_ sender: Any) {
-        leadingc.constant = -414
-        trailingc.constant = -414
-        shadeButton.isHidden = true
-        shade.isHidden = true
-        takeNoteButton.isHidden = false
-    }
+   
     
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let temp = noteList2.remove(at: sourceIndexPath.item)
@@ -356,6 +416,8 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     func retrieveOrderNotes()->[Int]?{
         let defaults = UserDefaults.standard
         let array = defaults.array(forKey: "Index") as? [Int] ?? [Int]()
+        print("see here")
+        print(array)
         return array
     }
     
@@ -366,27 +428,15 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
     
     
     @objc func handleLongGesture(gesture: UILongPressGestureRecognizer){
-//        let menu = UIMenuController.shared
-//        //becomeFirstResponder()
-//        let menuItemCrop = UIMenuItem(title: "Crop", action: #selector(handleMenuItemAction))
-//        let menuItemRotate = UIMenuItem(title: "Rotate", action: #selector(handleMenuItemAction1))
-//        let menuItemContrast = UIMenuItem(title: "Contrast", action: #selector(handleMenuItemAction))
-//        //let menuItemVibrance = UIMenuItem(title: "Vibrance", action: #selector(handleMenuItemAction))
-//        menu.menuItems = [menuItemCrop, menuItemRotate, menuItemContrast]
-//        let location = gesture.location(in: gesture.view)
-//        let menuLocation = CGRect(x: 0, y: -50, width: 0, height: 0)
-//        menu.setTargetRect(menuLocation, in: gesture.view!)
         switch gesture.state {
         case .began:
             changeborder = true
             viewup.isHidden = false
             count = 0
             mMode = mMode == .view ? .select : .view
-//            menu.setMenuVisible(true, animated: true)
             guard let selectedIndexPath = collectionview.indexPathForItem(at: gesture.location(in: collectionview)) else{ break }
             collectionview.beginInteractiveMovementForItem(at: selectedIndexPath)
         case .changed:
-//            menu.setMenuVisible(false, animated: false)
             collectionview.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
         case .ended:
            // changeborder = false
@@ -404,23 +454,6 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         return color!
     }
     
-//    @objc func handlelongpress(sender:UILongPressGestureRecognizer)
-//    {
-//        if sender.state == .began && sender.state != .changed
-//        {
-//            let menu = UIMenuController.shared
-//            becomeFirstResponder()
-//            let menuItemCrop = UIMenuItem(title: "Crop", action: #selector(handleMenuItemAction))
-//            let menuItemRotate = UIMenuItem(title: "Rotate", action: #selector(handleMenuItemAction1))
-//            let menuItemContrast = UIMenuItem(title: "Contrast", action: #selector(handleMenuItemAction))
-//            let menuItemVibrance = UIMenuItem(title: "Vibrance", action: #selector(handleMenuItemAction))
-//            menu.menuItems = [menuItemCrop, menuItemRotate, menuItemContrast, menuItemVibrance]
-//            let location = sender.location(in: sender.view)
-//            let menuLocation = CGRect(x: location.x, y: location.y, width: 0, height: 0)
-//            menu.setTargetRect(menuLocation, in: sender.view!)
-//            menu.setMenuVisible(true, animated: true)
-//        }
-//    }
     @objc func handleMenuItemAction() {
         print("menu item tapped")
     }
@@ -435,4 +468,95 @@ class SecondViewController: UIViewController,UICollectionViewDelegate,UICollecti
         count = 0
     }
     
+    @IBAction func archivenotes(_ sender: Any) {
+        
+        var deleteNeededIndexPaths: [IndexPath] = []
+        for (key, value) in dictionarySelectedIndecPath {
+            if value {
+                deleteNeededIndexPaths.append(key)
+            }
+        }
+        
+        for i in deleteNeededIndexPaths.sorted(by: { $0.item > $1.item }) {
+            updatecoredata(c: noteList2[i.item].texttitle)
+            noteList2.remove(at: i.item)
+            updateuserdefault(index: i.item)
+        }
+        for i in 0..<noteList2.count
+        {
+            noteList2[i].index = i
+        }
+        collectionview.deleteItems(at: deleteNeededIndexPaths)
+        dictionarySelectedIndecPath.removeAll()
+        
+    }
+    func updateuserdefault(index : Int)
+    {
+        var indexArr = retrieveOrderNotes()
+        if indexArr?.count != 0 {
+            var updatedIndexArr = indexArr!.filter {$0 != index}
+            for i in 0 ..< updatedIndexArr.count{
+                if updatedIndexArr[i] > index{
+                    updatedIndexArr[i] = updatedIndexArr[i]-1
+                }
+            }
+            UserDefaults.standard.removeObject(forKey: "Index")
+            let defaults = UserDefaults.standard
+            defaults.set(updatedIndexArr, forKey: "Index")
+        }
+        
+    }
+    
+    func updatecoredata(c:String)
+    {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "User")
+        fetchRequest.predicate = NSPredicate(format: "title = %@", c)
+        do {
+            let test  = try context.fetch(fetchRequest)
+            
+            let objectUpdate = test[0] as! NSManagedObject
+//            objectUpdate.setValue(titleview.text, forKey: "title")
+//            objectUpdate.setValue(noteview.text, forKey: "note")
+            objectUpdate.setValue(true, forKey: "archive")
+            //            objectUpdate.setValue("1234", forKey: "age")
+            //            objectUpdate.setValue("vffgf", forKey: "password")
+            do {
+                try context.save()
+            } catch  {
+                print(error)
+            }
+        } catch  {
+            print(error)
+        }
+        
+    }
+    
+    
+    
+    
+    
+    @IBAction func slideout(_ sender: Any) {
+        
+        lead.constant = -414
+        trail.constant = -414
+        ham = false
+        takeNoteButton.isHidden = false
+    }
+    func returnarray()->[Int]
+    {
+        return array
+    }
+    
+    @IBAction func buttontoarchive(_ sender: Any) {
+        
+        print("Archive")
+        let main = UIStoryboard(name: "Main", bundle: nil)
+        let first = main.instantiateViewController(withIdentifier: "ArchiveVC") as! ArchiveController
+        //first.showlist = archivelist
+        self.present(first,animated: true,completion: nil)
+    }
+    //print("asdjhasd")
 }
