@@ -1,161 +1,154 @@
 //
 //  ViewController.swift
-//  CollectionViewPratcice
+//  FundooApp
 //
-//  Created by admin on 30/09/19.
+//  Created by admin on 20/09/19.
 //  Copyright © 2019 admin. All rights reserved.
 //
 
 import UIKit
-import CoreData
-class ViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate {
-    var images:[Any] = []
-    var result:[NSManagedObject] = []
-    @IBOutlet weak var mycollectionview: UICollectionView!
-    var selectedRow = -1
-    var n:String?
+import Foundation
+struct Inventory : Codable {
+    var emailid : String?
+    //var userid : String?
+    var security : String?
+    //var price : Int?
+}
+
+
+class ViewController: UIViewController {
+    var myArrayofRiceInventory = [Inventory]()
+    
+    @IBOutlet weak var loginbutton: UIButton!
+    @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var imagetop: UIImageView!
+    @IBOutlet weak var imagebelow: UIImageView!
+    @IBOutlet weak var emailfield: UITextField!
+        @IBOutlet weak var passfield: UITextField!
+    @IBOutlet weak var imagefull: UIImageView!
+    @IBOutlet weak var marqueefield: UIWebView!
+    var sizeclass:Bool?
+    var flag = 1
+    var str: String?
     override func viewDidLoad() {
         super.viewDidLoad()
-        let view = SecondViewController()
-        images = collectinArray()
         // Do any additional setup after loading the view.
-        let itemsize = UIScreen.main.bounds.width/3 - 3
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20,left: 0,bottom: 10,right: 0)
-        layout.itemSize = CGSize(width: itemsize, height: itemsize)
-        layout.minimumInteritemSpacing = 3
-        layout.minimumLineSpacing = 3
-        mycollectionview.collectionViewLayout = layout
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
-        //request.predicate = NSPredicate(format: "age = %@", "12")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                n = data.value(forKey: "title") as? String
-                print(n)
+        //self.view.sendSubviewToBack(imagetop)
+        imagefull.image = UIImage(named: "Image-3")?.alpha(0.4)
+        self.view.sendSubviewToBack(imagefull)
+        //[emailfield setBackgroundColor:[UIColor clearColor]];
+        emailfield.setPadding()
+        emailfield.setBottomBorder()
+       // emailfield.backgroundColor = UIColor(patternImage: (UIImage(named: "Image-3")!.alpha(0.4)))
+        passfield.setPadding()
+        passfield.setBottomBorder()
+        print("sjfdjsdfhsjkdhfdjskhfjksdhfkjsdh")
+        print(sizeclass)
+//         marqueefield.loadHTMLString("<html><body><marquee>Welcome to FundooNotes</marquee></body></html>", baseURL: nil)
+        let filePath = "/Users/admin/BridgeLabz/Week3 JSON/FundooApp/FundooApp/login.json"  // file path
+        let fileData = FileManager.default.contents(atPath: filePath)
+        let decoder = JSONDecoder()
+        do{
+            
+            let jsonDictionary : [String: [Inventory]] = try decoder.decode(Dictionary.self, from: fileData!)
+            myArrayofRiceInventory = jsonDictionary["details"]!
+            
+        }catch let error{
+            print("Not Found")
+        }
+        
+        
+        
+        //print(flag)
+    }
+    func pract()->String
+    {
+        return "Hi"
+    }
+    func checkemailpass()->Bool
+    {
+        for i in myArrayofRiceInventory{
+            
+            if emailfield.text == i.emailid && passfield.text == KeychainWrapper.standard.string(forKey: emailfield.text!)
+            {
+                return true
             }
             
-        } catch {
-            
-            print("Failed")
         }
+        return false
     }
     
-    
-    func collectinArray()->[Any]{
+    @IBAction func login(_ sender: Any) {
         
-        var tempArray:[Any] = []
-        var image1 = Image(image: UIImage(named: "2")!)
-         var image2 = Image(image: UIImage(named: "3")!)
-         var image3 = Image(image: UIImage(named: "4")!)
-         var image4 = Image(image: UIImage(named: "5")!)
-        var text1 = Text(text: "sudipta")
-        var text2 = Text(text: "just text")
-       
-        tempArray.append(image1)
-        tempArray.append(image2)
-        tempArray.append(image3)
-        tempArray.append(image4)
-        tempArray.append(text1)
-        tempArray.append(text2)
-//        if text3.text != "Title" && text3.text != "Raj" && text3.text != "Yuiop"
-//        {
-//            tempArray.append(text3)
-//        }
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
-        //request.predicate = NSPredicate(format: "age = %@", "12")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                n = data.value(forKey: "title") as? String
-                if n != nil{
-                    var text3 = Text(text: n!)
-                    tempArray.append(text3)
-                }
-            }
+        if checkemailpass()
+        {
+            UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
+            UserDefaults.standard.synchronize()
+            performSegue(withIdentifier: "mysegue", sender: self)
             
-        } catch {
-            
-            print("Failed")
         }
-    
-//        for data in result as! [NSManagedObject] {
-//            n = data.value(forKey: "title") as? String
-//            if n != nil{
-//            var text3 = Text(text: n!)
-//            tempArray.append(text3)
-//            }
-////            print(n)
-//        }
-//        if n != nil
-//        {
-//            print("if")
-//             var text3 = Text(text: n!)
-//            tempArray.append(text3)
-//        }
-       // tempArray.append(n)
-        print(tempArray.count)
-        return tempArray
-    }
-   // let array:[String] = ["2","3","4","5"]
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        else
+        {
+            let alertController:UIAlertController = UIAlertController(title: "Message", message: "EmailId or Password is incorrect", preferredStyle: UIAlertController.Style.alert)
+            let alertAction:UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:nil)
+            alertController.addAction(alertAction)
+            present(alertController, animated: true, completion: nil)
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var item = images[indexPath.item]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! myCell
-//        if selectedRow == indexPath.row {
-//            cell.layer.borderColor = UIColor.blue.cgColor
-//            cell.layer.borderWidth = 1
-//        }
-//        else {
-//            cell.layer.borderWidth = 0
-//        }
-        
-        cell.layer.borderWidth = 5
-        cell.layer.borderColor = UIColor.black.cgColor
-        let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "textFieldCell", for: indexPath) as! TextCollectionViewCell
-        cell2.layer.borderWidth = 5
-        cell2.layer.borderColor = UIColor.black.cgColor
-        var condition = true
-        if item is Image{
-            cell.Image.image = (item as! Image).image
-       // cell.setImage(image: item as! Image)
-        }
-    else if item is Text{
-            cell2.textLabel?.text = (item as! Text).text
-            //cell2.setText(item: item as! Text)
-            condition = false
-        }
-       // return cell
-        return condition ? cell:cell2
-    }
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        if selectedRow == indexPath.row {
-//            selectedRow = -1
-//        } else {
-//            selectedRow = indexPath.row
-//        }
-//        collectionView.reloadData()
-//    }
-//
-
-    
-
-    @IBAction func pressbutt(_ sender: Any) {
+    @IBAction func onRegister(_ sender: Any) {
         
         let main = UIStoryboard(name: "Main", bundle: nil)
-        let first = main.instantiateViewController(withIdentifier: "SecondVC")
+        let first = main.instantiateViewController(withIdentifier: "ThirdVC")
         self.present(first, animated: true, completion: nil)
     }
     
+    @IBAction func forgetPassword(_ sender: Any) {
+        
+        let main = UIStoryboard(name: "Main", bundle: nil)
+        let first = main.instantiateViewController(withIdentifier: "ForgotPasswordVC")
+        self.present(first, animated: true, completion: nil)
+    }
+    
+    @IBAction func loginbutton(_ sender: Any) {
+        
+        performSegue(withIdentifier: "mysegue", sender: self)
+    }
+    
+    
+    @IBAction func onnext(_ sender: Any) {
+        
+        let main = UIStoryboard(name: "Main", bundle: nil)
+        let first = main.instantiateViewController(withIdentifier: "savenotevc")
+        self.present(first, animated: true, completion: nil)
+    }
+}
+
+extension  UIImage {
+    
+    func alpha(_ value: CGFloat) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+    
+}
+extension UITextField {
+    
+    func setPadding(){
+        
+        let paddingview = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
+        self.leftView = paddingview
+        self.rightView = paddingview
+    }
+    func setBottomBorder(){
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        self.layer.shadowOpacity = 1.0
+        self.layer.shadowRadius = 0.0
+    }
 }
 
