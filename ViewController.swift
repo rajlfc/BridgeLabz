@@ -8,6 +8,9 @@
 
 import UIKit
 import Foundation
+import GoogleSignIn
+import FacebookCore
+import FacebookLogin
 struct Inventory : Codable {
     var emailid : String?
     //var userid : String?
@@ -16,8 +19,40 @@ struct Inventory : Codable {
 }
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,GIDSignInDelegate {
+    @IBOutlet weak var signinbutton: UIButton!
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+         print("sudiptogjggugug")
+        if let error = error{
+            print("We have a problem signin \(error.localizedDescription)")
+        }
+        else{
+//            if let gmailuser = user{
+//                //signinbutton.setTitle("Sign Out", for: .normal)
+//                let main = UIStoryboard(name: "Main", bundle: nil)
+//                let first = main.instantiateViewController(withIdentifier: "SecondVC")
+//                //performSegue(withIdentifier: "mysegue", sender: self)
+//                GIDSignIn.sharedInstance()?.presentingViewController = first
+//                print("sign in")
+//                UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
+//                UserDefaults.standard.synchronize()
+//                //performSegue(withIdentifier: "mysegue", sender: self)
+//
+//
+//                //signinbutton.setImage(UIImage(named: "GoogleSignOut"), for: .normal)
+//            }
+            print("sudipto")
+            UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
+            UserDefaults.standard.synchronize()
+//            let main = UIStoryboard(name: "Main", bundle: nil)
+//            let first = main.instantiateViewController(withIdentifier: "SecondVC")
+//            self.present(first, animated: true, completion: nil)
+            performSegue(withIdentifier: "mysegue", sender: self)
+        }
+    }
+    
     var myArrayofRiceInventory = [Inventory]()
+    
     
     @IBOutlet weak var loginbutton: UIButton!
     @IBOutlet weak var image: UIImageView!
@@ -33,7 +68,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        signinbutton.addTarget(self, action: #selector(SigninUserUsingGoogle(_:)), for: .touchUpInside)
         //self.view.sendSubviewToBack(imagetop)
         imagefull.image = UIImage(named: "Image-3")?.alpha(0.4)
         self.view.sendSubviewToBack(imagefull)
@@ -61,6 +96,28 @@ class ViewController: UIViewController {
         
         
         //print(flag)
+    }
+    
+    @objc func SigninUserUsingGoogle(_ sender:UIButton)
+    {
+//        if signinbutton.image(for: .normal) == UIImage(named:"GoogleSignOut")
+//        {
+//            GIDSignIn.sharedInstance()?.signOut()
+//            //signinbutton.setTitle("Sign in Using Google", for: .normal)
+//            signinbutton.setImage(UIImage(named: "GoogleSignin"), for: .normal)
+//        }
+//        else{
+//        let main = UIStoryboard(name: "Main", bundle: nil)
+//        let first = main.instantiateViewController(withIdentifier: "SecondVC")
+            GIDSignIn.sharedInstance()?.delegate = self as! GIDSignInDelegate
+            GIDSignIn.sharedInstance()?.presentingViewController = self
+            print("abc")
+            //GIDSignIn.sharedInstance().uidelegate = self
+            GIDSignIn.sharedInstance()?.signIn()
+        print("efg")
+            
+        //}
+        
     }
     func pract()->String
     {
@@ -123,8 +180,33 @@ class ViewController: UIViewController {
         let first = main.instantiateViewController(withIdentifier: "savenotevc")
         self.present(first, animated: true, completion: nil)
     }
-}
+    @IBAction func loginfacebook(_ sender: Any) {
 
+        let manager = LoginManager()
+        manager.logIn(permissions: [.publicProfile,.email], viewController: self){(result) in
+            switch result{
+
+            case .cancelled:
+                break
+            case .failed(let error):
+                print("Login failed with error = \(error.localizedDescription)")
+            case .success(let granted, let declined, let token):
+                print("Access token = \(token)")
+                UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
+                UserDefaults.standard.synchronize()
+                let main = UIStoryboard(name: "Main", bundle: nil)
+                let first = main.instantiateViewController(withIdentifier: "SecondVC")
+                self.present(first, animated: true, completion: nil)
+//                performSegue(withIdentifier: "mysegue", sender: self)
+                
+    }
+  }
+ }
+    func getuserprofile(){
+        let connection = GraphRequestConnection()
+        connection.add(GraphRequest(graphPath: "/me", parameters: ["fields":"id,name,birthday,email"], tokenString: AccessToken.current, version: , httpMethod: .get))
+    }
+}
 extension  UIImage {
     
     func alpha(_ value: CGFloat) -> UIImage {
